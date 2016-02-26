@@ -24,6 +24,9 @@ plot(q25, type = 'l',
      lwd = 2, col = 'blue', log = 'y')
 lines(q50, type = 'l', lwd = 2, col = 'red')
 lines(q75, type = 'l', lwd = 2, col = 'green')
+lines(c(0, 30), c(mean(q25), mean(q25)), lty = 2, col = 'grey')
+lines(c(0, 30), c(mean(q50), mean(q50)), lty = 2, col = 'grey')
+lines(c(0, 30), c(mean(q75), mean(q75)), lty = 2, col = 'grey')
 axis(side = 1, at = c(1, 29), 
      labels = c('2015-12-06', '2016-01-04'))
 axis(side = 2, at = c(10, 30, 80, 100, 400, 500), labels = c(10, 30, '', '', '', ''), las = 2)
@@ -32,5 +35,5 @@ legend("bottomright", legend = c("0.25 Quantiles", "0.50 Quantiles", "0.75 Quant
        lwd = rep(2, 3), col = c("blue", "red", "green"), 
        bg="white", cex = 0.8)
 box()
- 
+
 dev.off()
