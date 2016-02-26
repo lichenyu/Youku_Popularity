@@ -217,10 +217,25 @@ if '__main__' == __name__:
 #     for date in date_strs:
 #         get_vci(workpath + 'data/clean_data/' + date, workpath + 'data/vci_files/' + date)
     
+#     in_files = []
+#     for date in date_strs:
+#         in_files.append(workpath + 'data/vci_files/' + date)
+#     merge_files(in_files, workpath + 'data/vci_files/vci')
+
     in_files = []
-    for date in date_strs:
-        in_files.append(workpath + 'data/vci_files/' + date)
-    merge_files(in_files, workpath + 'data/vci_files/vci')
+    for i in range(0, 10):
+        in_files.append(workpath + 'data/vci_files/' + date_strs[i])
+    merge_files(in_files, workpath + 'data/vci_files/vci_1-10')
+    
+    in_files = []
+    for i in range(10, 20):
+        in_files.append(workpath + 'data/vci_files/' + date_strs[i])
+    merge_files(in_files, workpath + 'data/vci_files/vci_11-20')
+    
+    in_files = []
+    for i in range(20, 29):
+        in_files.append(workpath + 'data/vci_files/' + date_strs[i])
+    merge_files(in_files, workpath + 'data/vci_files/vci_21-29')
     
     print('All Done!')
     
