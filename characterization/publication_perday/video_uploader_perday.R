@@ -18,8 +18,9 @@ barpos = barplot(d, beside = TRUE,
                  ylim = c(0, 35000), axes = FALSE, 
                  main = '', sub = '', xlab = 'Publication Date', ylab = 'Count', 
                  col = c('grey', 'white'), border = 'grey')
-axis(side = 1, at = c(barpos[1], barpos[length(barpos)]), labels = c('2015-12-06', ''))
-axis(side = 1, at = barpos[length(barpos) - 4], labels = '2016-01-04', tck = 0)
+
+axis(side = 1, at = barpos[1, ], labels = rep('', length(barpos[1, ])))
+axis(side = 1, at = c(barpos[1], barpos[length(barpos) - 4]), labels = c('2015-12-06', '2016-01-04'), tck = 0)
 axis(side = 2, at = seq(0, 30000, 10000), labels = seq(0, 30000, 10000))
 legend("topright", inset = c(0, 0), 
        pch = c(15, 0), col = c("grey", "grey"), 
