@@ -21,17 +21,16 @@ plot(q25, type = 'l',
      xlim = c(0, 30), ylim = c(1, 1000), 
      axes = FALSE, xaxs="i", 
      main = '', sub = '', xlab = 'Publication Date', ylab = 'View Count', 
-     lwd = 2, col = 'blue', log = 'y')
+     lwd = 2, col = 'green', log = 'y')
 lines(q50, type = 'l', lwd = 2, col = 'red')
-lines(q75, type = 'l', lwd = 2, col = 'green')
+lines(q75, type = 'l', lwd = 2, col = 'blue')
 lines(c(0, 30), c(mean(q25), mean(q25)), lty = 2, col = 'grey')
 lines(c(0, 30), c(mean(q50), mean(q50)), lty = 2, col = 'grey')
 lines(c(0, 30), c(mean(q75), mean(q75)), lty = 2, col = 'grey')
-axis(side = 1, at = c(1, 29), 
-     labels = c('2015-12-06', '2016-01-04'))
+axis(side = 1, at = c(1, 29), labels = c('2015-12-06', '2016-01-04'))
 axis(side = 2, at = c(10, 30, 80, 100, 400, 500), labels = c(10, 30, '', '', '', ''), las = 2)
 axis(side = 2, at = c(60, 120, 300, 600), labels = c(80, 100, 400, 500), las = 2, tck = 0)
-legend("bottomright", legend = c("0.25 Quantiles", "0.50 Quantiles", "0.75 Quantiles"), 
+legend("bottomright", legend = c("0.75 Quantiles", "0.50 Quantiles", "0.25 Quantiles"), 
        lwd = rep(2, 3), col = c("blue", "red", "green"), 
        bg="white", cex = 0.8)
 box()
