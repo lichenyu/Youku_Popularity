@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
-encoding//characterization/category_perday.py=utf-8
-encoding//characterization/publication_perday.py=utf-8
-encoding//characterization/publication_time.py=utf-8
+encoding//characterization/category_rank_perday.py=utf-8
+encoding//characterization/publication_count_perday.py=utf-8
+encoding//characterization/video_duration_hist.py=utf-8
+encoding//characterization/video_pubtime_hist.py=utf-8
