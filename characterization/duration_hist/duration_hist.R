@@ -27,10 +27,10 @@ lines(e, do.points = FALSE, verticals = TRUE, col.01line = NULL, col = "blue", l
 axis(side = 1, at = seq(0, 1800, 300), labels = seq(0, 1800, 300))
 axis(side = 2, at = seq(0, 1, .2), 
      labels = expression('0', '1*10'^4, '2*10'^4, '3*10'^4, '4*10'^4, '5*10'^4), 
-     las = 1, mgp = c(3, 0.75, 0))
+     las = 1, mgp = c(3, 0.6, 0))
 #mgp=c(axis.title.position, axis.label.position, axis.line.position), The default is c(3, 1, 0)
 axis(side = 4, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 1)
-mtext("CDF", side = 4, las = 0, line = 2.5)
+mtext("CDF", side = 4, las = 0, line = 2.5, col = 'blue')
 
 dev.off()
 
