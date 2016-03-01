@@ -62,10 +62,10 @@ def get_cat_pct(infile):
 
 
 if '__main__' == __name__:
-#     datapath = '/Users/ouyangshuxin/Documents/Youku_Popularity/'
-#     workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
-    datapath = 'F:/Youku_Popularity/'
-    workpath = 'F:/Youku_Popularity/Youku_Popularity/'
+    datapath = '/Users/ouyangshuxin/Documents/Youku_Popularity/'
+    workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
+#     datapath = 'F:/Youku_Popularity/'
+#     workpath = 'F:/Youku_Popularity/Youku_Popularity/'
     
     date_strs = ['2015-12-06', '2015-12-07', '2015-12-08', '2015-12-09', '2015-12-10', 
                 '2015-12-11', '2015-12-12', '2015-12-13', '2015-12-14', '2015-12-15', 

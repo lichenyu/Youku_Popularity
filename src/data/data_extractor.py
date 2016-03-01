@@ -1,6 +1,26 @@
+import sys
 from datetime import date
 from datetime import timedelta
 import json
+
+# remove the vid that appears before
+def check_vid(in_files, out_files):
+    if len(in_files) != len(out_files):
+        print('In Files Out Files Lengths Not Match!')
+        sys.exit(-1)
+    vid_set = set()
+    for i in range(0, len(in_files)):
+        in_fd = open(in_files[i], 'r')
+        out_fd = open(out_files[i], 'w')
+        for line in in_fd.readlines():
+            cur_vid = line.strip()
+            if cur_vid in vid_set:
+                continue
+            else:
+                vid_set.add(cur_vid)
+                out_fd.write(cur_vid + '\n')
+        in_fd.close()
+        out_fd.close()
 
 def extract_daily_viewcount(vid_path, json_path, out_path, start_date, days_2end, monitoring_length):
     # for date calculation
@@ -162,15 +182,31 @@ def get_vci(in_file, out_file):
     out_fd.close()
 
 if '__main__' == __name__:
+    datapath = '/Users/ouyangshuxin/Documents/Youku_Popularity/'
     workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
     
-    # do not get list on 2015-12-25
-#     extract_daily_viewcount(workpath + 'rawdata/vid/', 
-#                             workpath + 'rawdata/detail_json/', 
+    date_strs = ['2015-12-06', '2015-12-07', '2015-12-08', '2015-12-09', '2015-12-10', 
+                '2015-12-11', '2015-12-12', '2015-12-13', '2015-12-14', '2015-12-15', 
+                '2015-12-16', '2015-12-17', '2015-12-18', '2015-12-19', '2015-12-20', 
+                '2015-12-21', '2015-12-22', '2015-12-23', '2015-12-24', '2015-12-26', 
+                '2015-12-27', '2015-12-28', '2015-12-29', '2015-12-30', '2015-12-31', 
+                '2016-01-01', '2016-01-02', '2016-01-03', '2016-01-04']
+    
+#     # check vid, remove duplicated vids in later days
+#     in_files = []
+#     out_files = []
+#     for d in date_strs:
+#         in_files.append(datapath + 'rawdata/vid/' + d)
+#         out_files.append(workpath + 'data/vid/' + d)
+#     check_vid(in_files, out_files)
+    
+#     # do not get list on 2015-12-25
+#     extract_daily_viewcount(workpath + 'data/vid/', 
+#                             datapath + 'rawdata/detail_json/', 
 #                             workpath + 'data/all_extracted/', 
 #                             '2015-12-06', 19, 30)
-#     extract_daily_viewcount(workpath + 'rawdata/vid/', 
-#                             workpath + 'rawdata/detail_json/', 
+#     extract_daily_viewcount(workpath + 'data/vid/', 
+#                             datapath + 'rawdata/detail_json/', 
 #                             workpath + 'data/all_extracted/', 
 #                             '2015-12-26', 10, 30)
 
@@ -206,13 +242,6 @@ if '__main__' == __name__:
 #     check_increase(workpath + 'data/clean_data/', 
 #                    workpath + 'data/check_increase2/', 
 #                    '2015-12-26', 10)
-
-    date_strs = ['2015-12-06', '2015-12-07', '2015-12-08', '2015-12-09', '2015-12-10', 
-                '2015-12-11', '2015-12-12', '2015-12-13', '2015-12-14', '2015-12-15', 
-                '2015-12-16', '2015-12-17', '2015-12-18', '2015-12-19', '2015-12-20', 
-                '2015-12-21', '2015-12-22', '2015-12-23', '2015-12-24', '2015-12-26', 
-                '2015-12-27', '2015-12-28', '2015-12-29', '2015-12-30', '2015-12-31', 
-                '2016-01-01', '2016-01-02', '2016-01-03', '2016-01-04']
     
 #     for date in date_strs:
 #         get_vci(workpath + 'data/clean_data/' + date, workpath + 'data/vci_files/' + date)
@@ -223,19 +252,29 @@ if '__main__' == __name__:
 #     merge_files(in_files, workpath + 'data/vci_files/vci')
 
 #     in_files = []
-#     for i in range(0, 10):
+#     for date in date_strs:
+#         in_files.append(workpath + 'data/clean_data/' + date)
+#     merge_files(in_files, workpath + 'data/clean_data/vc')
+
+#     in_files = []
+#     for i in range(0, 7):
 #         in_files.append(workpath + 'data/vci_files/' + date_strs[i])
-#     merge_files(in_files, workpath + 'data/vci_files/vci_1-10')
+#     merge_files(in_files, workpath + 'data/vci_files/vci_1-7')
+#      
+#     in_files = []
+#     for i in range(7, 14):
+#         in_files.append(workpath + 'data/vci_files/' + date_strs[i])
+#     merge_files(in_files, workpath + 'data/vci_files/vci_8-14')
+#      
+#     in_files = []
+#     for i in range(14, 21):
+#         in_files.append(workpath + 'data/vci_files/' + date_strs[i])
+#     merge_files(in_files, workpath + 'data/vci_files/vci_15-21')
 #     
 #     in_files = []
-#     for i in range(10, 20):
+#     for i in range(21, 28):
 #         in_files.append(workpath + 'data/vci_files/' + date_strs[i])
-#     merge_files(in_files, workpath + 'data/vci_files/vci_11-20')
-#     
-#     in_files = []
-#     for i in range(20, 29):
-#         in_files.append(workpath + 'data/vci_files/' + date_strs[i])
-#     merge_files(in_files, workpath + 'data/vci_files/vci_21-29')
+#     merge_files(in_files, workpath + 'data/vci_files/vci_22-28')
     
     print('All Done!')
     

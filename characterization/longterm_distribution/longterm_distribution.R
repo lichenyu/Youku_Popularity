@@ -47,10 +47,10 @@ library(actuar)
 
 
 pdf(paste(workpath, "characterization/longterm_distribution/longterm_fit.pdf", sep = ''), 
-    width = 15, height = 4)
-par(mfrow=c(1, 3))
+    width = 10, height = 4)
+par(mfrow=c(1, 2))
 
-data = read.table(paste(workpath, 'data/vci_files/vci_1-10', sep = ''))
+data = read.table(paste(workpath, 'data/vci_files/vci_1-7', sep = ''))
 n30 = rowSums(data[2:31])
 n30_p = n30[which(0 < n30)]
 
@@ -67,7 +67,24 @@ box()
 
 
 
-data = read.table(paste(workpath, 'data/vci_files/vci_11-20', sep = ''))
+# data = read.table(paste(workpath, 'data/vci_files/vci_8-14', sep = ''))
+# n30 = rowSums(data[2:31])
+# n30_p = n30[which(0 < n30)]
+# 
+# fp <- fitdist(n30_p, "pareto")
+# #d,l,u,r
+# par(mar=c(5, 4, 1, 2) + 0.1)
+# ppcomp(fp, axes = FALSE, 
+#        main = '', sub = '(b)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+#        lwd = 5)
+# axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+# axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+# abline(0, 1)
+# box()
+
+
+
+data = read.table(paste(workpath, 'data/vci_files/vci_15-21', sep = ''))
 n30 = rowSums(data[2:31])
 n30_p = n30[which(0 < n30)]
 
@@ -84,20 +101,20 @@ box()
 
 
 
-data = read.table(paste(workpath, 'data/vci_files/vci_21-29', sep = ''))
-n30 = rowSums(data[2:31])
-n30_p = n30[which(0 < n30)]
-
-fp <- fitdist(n30_p, "pareto")
-#d,l,u,r
-par(mar=c(5, 4, 1, 2) + 0.1)
-ppcomp(fp, axes = FALSE, 
-       main = '', sub = '(c)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
-       lwd = 5)
-axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
-axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
-abline(0, 1)
-box()
+# data = read.table(paste(workpath, 'data/vci_files/vci_22-28', sep = ''))
+# n30 = rowSums(data[2:31])
+# n30_p = n30[which(0 < n30)]
+# 
+# fp <- fitdist(n30_p, "pareto")
+# #d,l,u,r
+# par(mar=c(5, 4, 1, 2) + 0.1)
+# ppcomp(fp, axes = FALSE, 
+#        main = '', sub = '(c)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+#        lwd = 5)
+# axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+# axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+# abline(0, 1)
+# box()
 
 dev.off()
 

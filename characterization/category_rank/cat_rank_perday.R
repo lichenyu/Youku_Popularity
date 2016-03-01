@@ -1,7 +1,7 @@
 #workpath = 'F:/Youku_Popularity/Youku_Popularity/'
 workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
 
-data = read.table(paste(workpath, 'characterization/publication_perday/cat_rank_perday', sep = ''))
+data = read.table(paste(workpath, 'characterization/category_rank/cat_rank_perday', sep = ''))
 
 
 pdf(paste(workpath, "characterization/category_rank/cat_rank_perday.pdf", sep = ''), 
@@ -15,7 +15,7 @@ plot(data$V1, type = 'l',
      main = '', sub = '', xlab = 'Publication Date', ylab = 'Category Rank', 
      col = cols[24]
      )
-points(data$V1, pch = 20, col = 24, cex = 0.5)
+points(data$V1, pch = 20, col = cols[24], cex = 0.5)
 for(i in seq(2, 24)){
   var = paste()
   lines(eval(parse(text = paste('data$V', i, sep = ''))), 

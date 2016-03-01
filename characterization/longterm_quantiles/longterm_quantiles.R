@@ -6,9 +6,12 @@ q25 = data$V1
 q50 = data$V2
 q75 = data$V3
 
-mean(q25)
-mean(q50)
-mean(q75)
+data = read.table(paste(workpath, 'data/clean_data/vc', sep = ''))
+
+n30 = data$V31
+quantile(n30, 0.25)
+quantile(n30, 0.50)
+quantile(n30, 0.75)
 
 
 
@@ -24,9 +27,9 @@ plot(q25, type = 'l',
      lwd = 2, col = 'green', log = 'y')
 lines(q50, type = 'l', lwd = 2, col = 'red')
 lines(q75, type = 'l', lwd = 2, col = 'blue')
-lines(c(0, 30), c(mean(q25), mean(q25)), lty = 2, col = 'grey')
-lines(c(0, 30), c(mean(q50), mean(q50)), lty = 2, col = 'grey')
-lines(c(0, 30), c(mean(q75), mean(q75)), lty = 2, col = 'grey')
+lines(c(0, 30), c(quantile(n30, 0.25), quantile(n30, 0.25)), lty = 2, col = 'grey')
+lines(c(0, 30), c(quantile(n30, 0.50), quantile(n30, 0.50)), lty = 2, col = 'grey')
+lines(c(0, 30), c(quantile(n30, 0.75), quantile(n30, 0.75)), lty = 2, col = 'grey')
 axis(side = 1, at = seq(1, 29), labels = rep('', 29))
 axis(side = 1, at = c(1, 29), labels = c('2015-12-06', '2016-01-04'), tck = 0)
 axis(side = 2, at = c(10, 30, 80, 100, 400, 500), labels = c(10, 30, '', '', '', ''), las = 2)
