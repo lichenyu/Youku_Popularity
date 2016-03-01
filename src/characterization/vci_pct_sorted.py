@@ -15,7 +15,7 @@ def sort_vci_pct(in_file, out_file):
             vci_list[i] = 1. * vci_list[i] / s
         vci_list.sort(reverse = True)
         out_fd.write(fields[0])
-        for i in range(0, 30):
+        for i in range(0, 3):
             out_fd.write('\t' + str(vci_list[i]))
         out_fd.write('\n')
     in_fd.close()
