@@ -82,13 +82,48 @@ def get_video_first_lifetime(in_file, out_file, adv_abs, adv_rel, min_inactive_d
 if '__main__' == __name__:
     workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
     
-    get_video_lifetime(workpath + 'data/vci_files/vci', 
-                       workpath + 'characterization/video_lifetime/video_lifetime', 
-                       100, 1.5 / 30, 5)
+#     get_video_lifetime(workpath + 'data/vci_files/vci', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime', 
+#                        100, 1.5 / 30, 5)
+# 
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime', 
+#                              100, 1.5 / 30, 5)
 
-    get_video_first_lifetime(workpath + 'data/vci_files/vci', 
-                             workpath + 'characterization/video_lifetime/video_first_lifetime', 
-                             100, 1.5 / 30, 5)
+    
+    
+#     get_video_lifetime(workpath + 'data/vci_files/vci_level1', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime_level1', 
+#                        100, 1.5 / 30, 5)
+#     get_video_lifetime(workpath + 'data/vci_files/vci_level2', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime_level2', 
+#                        100, 1.5 / 30, 5)
+#     get_video_lifetime(workpath + 'data/vci_files/vci_level3', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime_level3', 
+#                        100, 1.5 / 30, 5)
+#     get_video_lifetime(workpath + 'data/vci_files/vci_level4', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime_level4', 
+#                        100, 1.5 / 30, 5)
+#     get_video_lifetime(workpath + 'data/vci_files/vci_level5', 
+#                        workpath + 'characterization/video_lifetime/video_lifetime_level5', 
+#                        100, 1.5 / 30, 5)
+
+
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci_level1', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime_level1', 
+#                              100, 1.5 / 30, 5)
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci_level2', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime_level2', 
+#                              100, 1.5 / 30, 5)
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci_level3', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime_level3', 
+#                              100, 1.5 / 30, 5)
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci_level4', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime_level4', 
+#                              100, 1.5 / 30, 5)
+#     get_video_first_lifetime(workpath + 'data/vci_files/vci_level5', 
+#                              workpath + 'characterization/video_lifetime/video_first_lifetime_level5', 
+#                              100, 1.5 / 30, 5)
         
     print('All Done!')
     
