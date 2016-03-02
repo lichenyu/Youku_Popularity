@@ -1,0 +1,101 @@
+
+def get_state_sequence(in_file, out_file, burst_rel):
+    in_fd = open(in_file, 'r')
+    out_fd = open(out_file, 'w')
+    for line in in_fd.readlines():
+        fields = line.strip().split('\t', -1)
+        # vid, vci1, vci2, ..., vci30
+        vci_list = []
+        pct_list = []
+        for i in range(1, 1 + 30):
+            vci_list.append(int(fields[i]))
+        s = sum(vci_list)
+        if 0 == s:
+            continue
+        for i in range(0, 30):
+            pct_list.append(1. * vci_list[i] / s)
+        # get pct
+#         out_fd.write(fields[0])
+#         out_fd.write('\n')
+#         for i in range(0, 30):
+#             out_fd.write(str(vci_list[i]) + '\t')
+#         out_fd.write('\n')
+#         for i in range(0, 30):
+#             out_fd.write(str('%.02f' % pct_list[i]) + '\t')
+#         out_fd.write('\n')
+        state_list = []
+        for i in range(0, 30):
+            if burst_rel <= pct_list[i]:
+                state_list.append(1)
+            else:
+                state_list.append(0)
+        out_fd.write(fields[0] + '\t' + str(sum(vci_list)) + '\t')
+        for i in range(0, 30):
+            out_fd.write(str(state_list[i]))
+        out_fd.write('\n')
+    in_fd.close()
+    out_fd.close()
+    
+def count_results(in_file, out_file, result_idx):
+    in_fd = open(in_file, 'r')
+    result_map = {}
+    total = 0
+    for line in in_fd.readlines():
+        fields = line.strip().split('\t', -1)
+        rslt = fields[result_idx]
+        if False == (rslt in result_map):
+            result_map[rslt] = 1
+        else:
+            result_map[rslt] = result_map[rslt] + 1
+        total = total + 1
+    in_fd.close()
+    sorted_list = sorted(result_map.items(), lambda i1, i2: cmp(i1[1], i2[1]), reverse = True)
+    out_fd = open(out_file, 'w')
+    for v in sorted_list:
+        out_fd.write(v[0] + '\t' + str(v[1]) + '\t%.02f' % (v[1] * 100. / total) + '%\n')
+    out_fd.close()
+    
+def merge_sequence(in_file, out_file):
+    in_fd = open(in_file, 'r')
+    out_fd = open(out_file, 'w')
+    for line in in_fd.readlines():
+        fields = line.strip().split('\t', -1)
+        # vid, n30, seq
+        sequence = []
+        for i in range(0, 30):
+            sequence.append(fields[2][i])
+        for i in range(1, 29):
+            if '0' == sequence[i] and '1' == sequence[i - 1] and '1' == sequence[i + 1]:
+                sequence[i] = '1'
+        out_fd.write(fields[0] + '\t' + fields[1] + '\t')
+        cur_state = ''
+        for i in range(0, 30):
+            if cur_state != sequence[i]:
+                out_fd.write(sequence[i])
+                cur_state = sequence[i]
+        out_fd.write('\n')
+    in_fd.close()
+    out_fd.close()
+
+if '__main__' == __name__:
+    workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
+    
+    get_state_sequence(workpath + 'data/vci_files/vci', 
+                       workpath + 'characterization/evolution_pattern/state_sequence', 
+                       1. * 3 / 30)
+ 
+    count_results(workpath + 'characterization/evolution_pattern/state_sequence', 
+                  workpath + 'characterization/evolution_pattern/state_sequence_count', 
+                  2)
+
+    merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence', 
+                   workpath + 'characterization/evolution_pattern/evolution_pattern')
+
+    count_results(workpath + 'characterization/evolution_pattern/evolution_pattern', 
+                  workpath + 'characterization/evolution_pattern/evolution_pattern_count', 
+                  2)
+        
+    print('All Done!')
+    
+    
+    
