@@ -12,19 +12,19 @@ def get_vci_pct(in_file, out_file):
         if 0 == s:
             continue
         for i in range(0, 30):
-            pct_list.append(1. * vci_list[i] / s)
+            pct_list.append(round(1. * vci_list[i] / s, 2))
         # get pct
         out_fd.write(fields[0] + '\n')
         for i in range(0, 30):
             out_fd.write(str(vci_list[i]) + '\t')
         out_fd.write('\n')
         for i in range(0, 30):
-            out_fd.write(str('%.02f' % pct_list[i]) + '\t')
+            out_fd.write(str(pct_list[i]) + '\t')
         out_fd.write('\n')
     in_fd.close()
     out_fd.close()
-
-def get_state_sequence(in_file, out_file, burst_rel):
+    
+def get_state_sequence(in_file, out_file, min_inc, avg_scale):
     in_fd = open(in_file, 'r')
     out_fd = open(out_file, 'w')
     for line in in_fd.readlines():
@@ -38,22 +38,40 @@ def get_state_sequence(in_file, out_file, burst_rel):
         if 0 == s:
             continue
         for i in range(0, 30):
-            pct_list.append(1. * vci_list[i] / s)
-        # get pct
-#         out_fd.write(fields[0])
-#         out_fd.write('\n')
-#         for i in range(0, 30):
-#             out_fd.write(str(vci_list[i]) + '\t')
-#         out_fd.write('\n')
-#         for i in range(0, 30):
-#             out_fd.write(str('%.02f' % pct_list[i]) + '\t')
-#         out_fd.write('\n')
+            pct_list.append(round(1. * vci_list[i] / s, 2))
         state_list = []
-        for i in range(0, 30):
-            if burst_rel <= pct_list[i]:
+        if avg_scale <= pct_list[0]:
+            state_list.append(1)
+        else:
+            state_list.append(0)
+        for i in range(1, 30):
+            if min_inc <= (pct_list[i] - pct_list[i-1]):
                 state_list.append(1)
             else:
                 state_list.append(0)
+        # --------------------------------------------------
+        # for two pct >= 0.8 * burst_rel, 00 - > 11
+        for i in range(0, 29):
+            if (0.8 * avg_scale <= pct_list[i]) and (0.8 * avg_scale <= pct_list[i+1]):
+                state_list[i] = 1
+                state_list[i+1] = 1
+        # --------------------------------------------------
+        # for three pct >= 0.7 * burst_rel, 000 - > 111
+        for i in range(0, 28):
+            if (0.7 * avg_scale <= pct_list[i]) and (0.7 * avg_scale <= pct_list[i+1]) and (0.7 * avg_scale <= pct_list[i+2]):
+                state_list[i] = 1
+                state_list[i+1] = 1
+                state_list[i+2] = 1
+        # --------------------------------------------------
+        # for four pct >= 0.6 * burst_rel, 0000 - > 1111
+        for i in range(0, 27):
+            if (0.6 * avg_scale <= pct_list[i]) and (0.6 * avg_scale <= pct_list[i+1]) and \
+            (0.6 * avg_scale <= pct_list[i+2]) and (0.6 * avg_scale <= pct_list[i+3]):
+                state_list[i] = 1
+                state_list[i+1] = 1
+                state_list[i+2] = 1
+                state_list[i+3] = 1
+        # --------------------------------------------------
         out_fd.write(fields[0] + '\t' + str(sum(vci_list)) + '\t')
         for i in range(0, 30):
             out_fd.write(str(state_list[i]))
@@ -108,62 +126,64 @@ if '__main__' == __name__:
     get_vci_pct(workpath + 'data/vci_files/vci',
                 workpath + 'characterization/evolution_pattern/vci_pct')
     
+    
+    
 #     get_state_sequence(workpath + 'data/vci_files/vci', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence', 
-#                        1. * 3 / 30)
-#  
+#                        1. * 2 / 30, 1. * 3 / 30)
+#     
 #     count_results(workpath + 'characterization/evolution_pattern/state_sequence', 
 #                   workpath + 'characterization/evolution_pattern/state_sequence_count', 
 #                   2)
-# 
+#    
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern')
-# 
+#    
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern', 
 #                   workpath + 'characterization/evolution_pattern/evolution_pattern_count', 
 #                   2)
-    
-    
-    
+       
+       
+       
 #     get_state_sequence(workpath + 'data/vci_files/vci_level1', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence_level1', 
-#                        1. * 3 / 30)
+#                        1. * 2 / 30, 1. * 3 / 30)
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence_level1', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern_level1')
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern_level1', 
 #                   workpath + 'characterization/evolution_pattern/evolution_pattern_count_level1', 
 #                   2)
-#     
+#        
 #     get_state_sequence(workpath + 'data/vci_files/vci_level2', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence_level2', 
-#                        1. * 3 / 30)
+#                        1. * 2 / 30, 1. * 3 / 30)
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence_level2', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern_level2')
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern_level2', 
 #                   workpath + 'characterization/evolution_pattern/evolution_pattern_count_level2', 
 #                   2)
-#     
+#        
 #     get_state_sequence(workpath + 'data/vci_files/vci_level3', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence_level3', 
-#                        1. * 3 / 30)
+#                        1. * 2 / 30, 1. * 3 / 30)
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence_level3', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern_level3')
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern_level3', 
 #                   workpath + 'characterization/evolution_pattern/evolution_pattern_count_level3', 
 #                   2)
-#     
+#        
 #     get_state_sequence(workpath + 'data/vci_files/vci_level4', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence_level4', 
-#                        1. * 3 / 30)
+#                        1. * 2 / 30, 1. * 3 / 30)
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence_level4', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern_level4')
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern_level4', 
 #                   workpath + 'characterization/evolution_pattern/evolution_pattern_count_level4', 
 #                   2)
-#     
+#        
 #     get_state_sequence(workpath + 'data/vci_files/vci_level5', 
 #                        workpath + 'characterization/evolution_pattern/state_sequence_level5', 
-#                        1. * 3 / 30)
+#                        1. * 2 / 30, 1. * 3 / 30)
 #     merge_sequence(workpath + 'characterization/evolution_pattern/state_sequence_level5', 
 #                    workpath + 'characterization/evolution_pattern/evolution_pattern_level5')
 #     count_results(workpath + 'characterization/evolution_pattern/evolution_pattern_level5', 
