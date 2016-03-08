@@ -108,8 +108,9 @@ def get_futureburst_frac(sequence_file, vci_file, out_file):
     vci_fd.close()
     out_fd.close()
     
-# for the 10 type, we filter large future frac as 1010
-def earlyburst_filter(vci_file, out_file, b_frac):
+# for the 10 type, we exclude large future frac as 1010
+# for the 0 type, we exclude large future frac as future burst
+def futureburst_filter(vci_file, out_file, b_frac):
     vci_fd = open(vci_file, 'r')
     out_fd = open(out_file, 'w')
     for line in vci_fd.readlines():
@@ -126,28 +127,32 @@ def earlyburst_filter(vci_file, out_file, b_frac):
     out_fd.close()
 
 
+
 if '__main__' == __name__:
     workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
      
-#     get_ifiles_by_pattern(workpath + 'characterization/evolution_pattern/evolution_pattern', 
-#                           workpath + 'data/vci_files/vci', 
-#                           '0', 
-#                           workpath + 'characterization/early_longterm/early_longterm_pattern0')
-#     
-#     get_ifiles_earlyburst(workpath + 'characterization/evolution_pattern/state_sequence', 
-#                           workpath + 'data/vci_files/vci', 
-#                           workpath + 'characterization/early_longterm/early_longterm_earlyburst')
-#     
-#     get_ifiles_futureburst(workpath + 'characterization/evolution_pattern/state_sequence', 
-#                            workpath + 'data/vci_files/vci', 
-#                            workpath + 'characterization/early_longterm/early_longterm_futureburst')
+    get_ifiles_by_pattern(workpath + 'characterization/evolution_pattern/evolution_pattern', 
+                          workpath + 'data/vci_files/vci', 
+                          '0', 
+                          workpath + 'characterization/early_longterm/early_longterm_pattern0')
+     
+    get_ifiles_earlyburst(workpath + 'characterization/evolution_pattern/state_sequence', 
+                          workpath + 'data/vci_files/vci', 
+                          workpath + 'characterization/early_longterm/early_longterm_earlyburst')
+     
+    get_ifiles_futureburst(workpath + 'characterization/evolution_pattern/state_sequence', 
+                           workpath + 'data/vci_files/vci', 
+                           workpath + 'characterization/early_longterm/early_longterm_futureburst')
 
-#     get_futureburst_frac(workpath + 'characterization/evolution_pattern/state_sequence', 
-#                          workpath + 'data/vci_files/vci', 
-#                          workpath + 'characterization/early_longterm/futureburst_frac')
+    get_futureburst_frac(workpath + 'characterization/evolution_pattern/state_sequence', 
+                         workpath + 'data/vci_files/vci', 
+                         workpath + 'characterization/early_longterm/futureburst_frac')
 
-    earlyburst_filter(workpath + 'characterization/early_longterm/early_longterm_earlyburst', 
-                      workpath + 'characterization/early_longterm/early_longterm_earlyburst_filter', 
-                      0.6 * 23 / 30)
+    futureburst_filter(workpath + 'characterization/early_longterm/early_longterm_earlyburst', 
+                       workpath + 'characterization/early_longterm/early_longterm_earlyburst_filter', 
+                       0.6 * 23 / 30)
+    futureburst_filter(workpath + 'characterization/early_longterm/early_longterm_pattern0', 
+                       workpath + 'characterization/early_longterm/early_longterm_pattern0_filter', 
+                       1.2 * 23 / 30)
 
     print('All Done!')
