@@ -144,9 +144,9 @@ if '__main__' == __name__:
                            workpath + 'data/vci_files/vci', 
                            workpath + 'characterization/early_longterm/early_longterm_futureburst')
 
-    get_futureburst_frac(workpath + 'characterization/evolution_pattern/state_sequence', 
-                         workpath + 'data/vci_files/vci', 
-                         workpath + 'characterization/early_longterm/futureburst_frac')
+#     get_futureburst_frac(workpath + 'characterization/evolution_pattern/state_sequence', 
+#                          workpath + 'data/vci_files/vci', 
+#                          workpath + 'characterization/early_longterm/futureburst_frac')
 
     futureburst_filter(workpath + 'characterization/early_longterm/early_longterm_earlyburst', 
                        workpath + 'characterization/early_longterm/early_longterm_earlyburst_filter', 
