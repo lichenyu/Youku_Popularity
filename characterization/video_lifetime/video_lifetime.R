@@ -27,8 +27,8 @@ plot(first_lifetime_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0,
 lines(lifetime_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, col = "blue", lwd = 2)
 axis(side = 1, at = seq(0, 30, 5), labels = seq(0, 30, 5), tck = 1, lty = 2, col = 'grey')
 axis(side = 2, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 2, tck = 1, lty = 2, col = 'grey')
-legend("bottomright", legend = c("Video Lifetime", 
-                                 "Video First Lifetime"), 
+legend("bottomright", legend = c("Video Lifetime (Backward Checking)", 
+                                 "Video Lifetime (Forward Checking)"), 
        lwd = rep(2, 2), col = c("blue", "red"), 
        bg="white", cex = 0.8)
 box()

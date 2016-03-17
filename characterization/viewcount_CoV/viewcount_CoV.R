@@ -4,7 +4,9 @@ data = read.table(paste(workpath, 'characterization/viewcount_CoV/viewcount_CoV'
 
 cov = data$V4
 
-h = hist(cov, breaks = 50, plot = FALSE)
+max(cov)
+brks = seq(0, 5.5, 0.1)
+h = hist(cov, breaks = brks, plot = FALSE)
 max(h$counts)
 h$counts = h$counts / 75000
 
@@ -18,8 +20,8 @@ par(mar = c(5, 4, 1, 4) + 0.1)
 plot(h, 
      xlim = c(0, 6), ylim = c(0, 1), 
      axes = FALSE, xaxs="i", yaxs="i", 
-     main = "", sub = "", xlab = "Coefficient of Variation", ylab = "Video Count", 
-     col = 'grey')
+     main = "", sub = "", xlab = "Coefficient of Variation", ylab = "", 
+     col = 'grey', border = 'grey')
 e = ecdf(cov)
 lines(e, do.points = FALSE, verticals = TRUE, col.01line = NULL, col = "blue", lwd = 2)
 axis(side = 1, at = seq(0, 6, 1), labels = seq(0, 6, 1))
@@ -30,5 +32,8 @@ axis(side = 2, at = seq(0, 1, .2),
 #mgp=c(axis.title.position, axis.label.position, axis.line.position), The default is c(3, 1, 0)
 axis(side = 4, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 1)
 mtext("CDF", side = 4, las = 0, line = 2.5, col = 'blue')
+mtext("Video Count", side = 2, las = 0, line = 3.0, col = 'darkgrey')
 
 dev.off()
+
+# the cov distribution concentrates to large values
