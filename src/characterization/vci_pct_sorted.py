@@ -27,6 +27,17 @@ if '__main__' == __name__:
     sort_vci_pct(workpath + 'data/vci_files/vci', 
                  workpath + 'characterization/peakday_pct/peakday_pct')
     
+    sort_vci_pct(workpath + 'data/vci_files/vci_level1', 
+                 workpath + 'characterization/peakday_pct/peakday_pct_level1')
+    sort_vci_pct(workpath + 'data/vci_files/vci_level2', 
+                 workpath + 'characterization/peakday_pct/peakday_pct_level2')
+    sort_vci_pct(workpath + 'data/vci_files/vci_level3', 
+                 workpath + 'characterization/peakday_pct/peakday_pct_level3')
+    sort_vci_pct(workpath + 'data/vci_files/vci_level4', 
+                 workpath + 'characterization/peakday_pct/peakday_pct_level4')
+    sort_vci_pct(workpath + 'data/vci_files/vci_level5', 
+                 workpath + 'characterization/peakday_pct/peakday_pct_level5')
+    
     print('All Done!')
     
     

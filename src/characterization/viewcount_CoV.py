@@ -26,6 +26,17 @@ if '__main__' == __name__:
     get_viewcount_CoV(workpath + 'data/vci_files/vci', 
                       workpath + 'characterization/viewcount_CoV/viewcount_CoV')
     
+    get_viewcount_CoV(workpath + 'data/vci_files/vci_level1', 
+                      workpath + 'characterization/viewcount_CoV/viewcount_CoV_level1')
+    get_viewcount_CoV(workpath + 'data/vci_files/vci_level2', 
+                      workpath + 'characterization/viewcount_CoV/viewcount_CoV_level2')
+    get_viewcount_CoV(workpath + 'data/vci_files/vci_level3', 
+                      workpath + 'characterization/viewcount_CoV/viewcount_CoV_level3')
+    get_viewcount_CoV(workpath + 'data/vci_files/vci_level4', 
+                      workpath + 'characterization/viewcount_CoV/viewcount_CoV_level4')
+    get_viewcount_CoV(workpath + 'data/vci_files/vci_level5', 
+                      workpath + 'characterization/viewcount_CoV/viewcount_CoV_level5')
+    
     print('All Done!')
     
     
