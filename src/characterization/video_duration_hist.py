@@ -30,6 +30,6 @@ if '__main__' == __name__:
     in_files = []
     for date in date_strs:
         in_files.append(datapath + 'rawdata/detail_json/' + date + '_' + date)
-    get_duration_count(in_files, workpath + 'characterization/duration_hist/durations')
+    get_duration_count(in_files, workpath + 'characterization/publication/durations')
     
     print('All Done!')

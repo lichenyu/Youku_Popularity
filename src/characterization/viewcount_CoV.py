@@ -16,7 +16,7 @@ def get_viewcount_CoV(in_file, out_file):
             CoV = 0
         else:
             CoV = std / mean
-        out_fd.write(fields[0] + '\t' + str(std) + '\t' + str(mean) + '\t' + str(CoV) + '\n')
+        out_fd.write(fields[0] + '\t' + str(round(std, 2)) + '\t' + str(round(mean, 2)) + '\t' + str(round(CoV, 2)) + '\n')
     in_fd.close()
     out_fd.close()
 

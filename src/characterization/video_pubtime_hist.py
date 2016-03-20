@@ -33,6 +33,6 @@ if '__main__' == __name__:
     in_files = []
     for date in date_strs:
         in_files.append(datapath + 'rawdata/detail_json/' + date + '_' + date)
-    get_pubtime_count(in_files, workpath + 'characterization/pubtime_hist/pubtime_count')
+    get_pubtime_count(in_files, workpath + 'characterization/publication/pubtime_count')
     
     print('All Done!')

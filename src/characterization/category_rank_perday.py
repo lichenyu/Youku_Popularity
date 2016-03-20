@@ -36,6 +36,7 @@ def get_cat_rank_perday(in_files, out_file, transmap):
         in_fd.close()
         # rank
         sorted_map = sorted(cat_count_map.items(), lambda i1, i2: cmp(i1[1], i2[1]))
+        # cat_id, rank
         for i in range(0, len(sorted_map)):
             cat_count_map[sorted_map[i][0]] = i + 1
         # output
@@ -75,13 +76,13 @@ if '__main__' == __name__:
                 '2016-01-01', '2016-01-02', '2016-01-03', '2016-01-04']
    
     transmap = get_transmap(datapath + 'rawdata/total_count/' + date_strs[0], 
-                            workpath + 'characterization/category_rank/category_nametrans')
+                            workpath + 'characterization/publication/category_nametrans')
     
     in_files = []
     for date in date_strs:
         in_files.append(datapath + 'rawdata/total_count/' + date)
     get_cat_rank_perday(in_files, 
-                        workpath + 'characterization/category_rank/cat_rank_perday', 
+                        workpath + 'characterization/publication/cat_rank_perday', 
                         transmap)
     
     print('All Done!')

@@ -30,6 +30,6 @@ if '__main__' == __name__:
     in_files = []
     for date in date_strs:
         in_files.append(workpath + 'data/clean_data/' + date)
-    get_quantiles(in_files, workpath + 'characterization/longterm_quantiles/quantiles')
+    get_quantiles(in_files, workpath + 'characterization/longterm_distribution/quantiles')
     
     print('All Done!')
