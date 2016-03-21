@@ -1,0 +1,81 @@
+workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
+
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy', sep = ''))
+
+entropy = data$V2
+
+max(entropy)
+brks = seq(0, 1, 0.01)
+h = hist(entropy, breaks = brks, plot = FALSE)
+max(h$counts)
+h$counts = h$counts / 50000
+
+
+
+pdf(paste(workpath, "characterization/viewcount_entropy/viewcount_entropy.pdf", sep = ''), 
+    width = 10, height = 4)
+
+par(mfrow=c(1, 2), cex=1)
+
+#d,l,u,r
+par(mar = c(5, 4, 1, 5))
+plot(h, 
+     xlim = c(0, 1), ylim = c(0, 1), 
+     axes = FALSE, #xaxs="i", yaxs="i", 
+     main = "", sub = "(a)", xlab = "Daily View Entropy", ylab = "", 
+     col = 'grey', border = 'grey')
+e = ecdf(entropy)
+lines(e, do.points = FALSE, verticals = TRUE, col.01line = NULL, col = "blue", lwd = 2)
+axis(side = 1, at = seq(0, 1, .2), labels = seq(0, 1, .2))
+axis(side = 2, at = seq(0, 1, .2), 
+     labels = seq(0, 50000, 10000), 
+     #labels = expression('0', '1.5*10'^4, '3.0*10'^4, '4.5*10'^4, '6.0*10'^4, '7.5*10'^4), 
+     las = 1, mgp = c(3, 0.55, 0))
+#mgp=c(axis.title.position, axis.label.position, axis.line.position), The default is c(3, 1, 0)
+axis(side = 4, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 1)
+mtext("CDF", side = 4, las = 0, line = 2.5, col = 'blue')
+mtext("Video Count", side = 2, las = 0, line = 3.0, col = 'darkgrey')
+
+
+
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy_level1', sep = ''))
+entropy_l1 = data$V2
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy_level2', sep = ''))
+entropy_l2 = data$V2
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy_level3', sep = ''))
+entropy_l3 = data$V2
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy_level4', sep = ''))
+entropy_l4 = data$V2
+data = read.table(paste(workpath, 'characterization/viewcount_entropy/viewcount_entropy_level5', sep = ''))
+entropy_l5 = data$V2
+
+entropy_l1_cdf = ecdf(entropy_l1)
+entropy_l2_cdf = ecdf(entropy_l2)
+entropy_l3_cdf = ecdf(entropy_l3)
+entropy_l4_cdf = ecdf(entropy_l4)
+entropy_l5_cdf = ecdf(entropy_l5)
+
+
+
+#d,l,u,r
+par(mar = c(5, 4, 1, 2))
+cols = rainbow(5)
+plot(entropy_l1_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, 
+     xlim = c(0, 1), ylim = c(0, 1), 
+     axes = FALSE, xaxs="i", yaxs="i", 
+     main = "", sub = "(b)", xlab = "Daily View Entropy", ylab = "CDF", 
+     col = cols[1], lwd = 2)
+lines(entropy_l2_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, col = cols[2], lwd = 2)
+lines(entropy_l3_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, col = cols[3], lwd = 2)
+lines(entropy_l4_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, col = cols[4], lwd = 2)
+lines(entropy_l5_cdf, do.points = FALSE, verticals = TRUE, col.01line = 0, col = cols[5], lwd = 2)
+axis(side = 1, at = seq(0, 1, .2), labels = seq(0, 1, .2), tck = 1, lty = 2, col = 'grey')
+axis(side = 2, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 2, tck = 1, lty = 2, col = 'grey')
+legend("bottomright", legend = c("Level 1", "Level 2", "Level 3", "Level 4", "Level 5"), 
+       lwd = rep(2, 5), col = cols, 
+       bg="white", cex = 0.8)
+box()
+
+
+
+dev.off()
