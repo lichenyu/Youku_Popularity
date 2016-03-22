@@ -25,7 +25,7 @@ par(mar=c(5, 4, 1, 2))
 plot(q25, type = 'l', 
      xlim = c(0, 30), ylim = c(1, 1000), 
      axes = FALSE, xaxs="i", 
-     main = '', sub = '(a)', xlab = 'Publication Date', ylab = 'View Count', 
+     main = '', sub = '(a)', xlab = 'Published Date', ylab = 'View Count', 
      lwd = 2, col = 'green', log = 'y')
 lines(q50, type = 'l', lwd = 2, col = 'red')
 lines(q75, type = 'l', lwd = 2, col = 'blue')
