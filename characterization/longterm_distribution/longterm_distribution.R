@@ -32,9 +32,9 @@ lines(q75, type = 'l', lwd = 2, col = 'blue')
 # lines(c(0, 30), c(mean(q25), mean(q25)), lty = 2, col = 'grey')
 # lines(c(0, 30), c(mean(q50), mean(q50)), lty = 2, col = 'grey')
 # lines(c(0, 30), c(mean(q75), mean(q75)), lty = 2, col = 'grey')
-lines(c(0, 30), c(quantile(n30, 0.25), quantile(n30, 0.25)), lty = 2, col = 'grey')
-lines(c(0, 30), c(quantile(n30, 0.50), quantile(n30, 0.50)), lty = 2, col = 'grey')
-lines(c(0, 30), c(quantile(n30, 0.75), quantile(n30, 0.75)), lty = 2, col = 'grey')
+lines(c(0, 30), c(quantile(n30, 0.25), quantile(n30, 0.25)), lty = 2, col = 'black')
+lines(c(0, 30), c(quantile(n30, 0.50), quantile(n30, 0.50)), lty = 2, col = 'black')
+lines(c(0, 30), c(quantile(n30, 0.75), quantile(n30, 0.75)), lty = 2, col = 'black')
 axis(side = 1, at = seq(1, 29), labels = rep('', 29))
 axis(side = 1, at = c(1, 29), labels = c('2015-12-06', '2016-01-03'), tck = 0)
 axis(side = 2, at = c(10, 30, 80, 100, 400, 500), labels = c(10, 30, '', '', '', ''), las = 2)
@@ -135,3 +135,75 @@ abline(0, 1)
 box()
 
 dev.off()
+
+
+
+library(MASS)
+library(fitdistrplus)
+library(actuar)
+
+n30_p = n30[which(0 < n30)]
+
+pdf(paste(workpath, "characterization/longterm_distribution/longterm_fit_2.pdf", sep = ''), 
+    width = 10, height = 8)
+
+par(mfrow = c(2, 2), cex = 1)
+
+fp <- fitdist(n30_p, "weibull")
+#d,l,u,r
+par(mar=c(5, 4, 1, 2))
+ppcomp(fp, axes = FALSE, 
+       main = '', sub = '(a)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+       lwd = 5)
+axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+abline(0, 1)
+box()
+# r_weibull = rweibull(10000, shape = fp$estimate[1], scale = fp$estimate[2])
+# e_weibull = ecdf(r_weibull)
+# lines(e_weibull, lwd = 1, lty = 2, col = 'pink')
+
+fp <- fitdist(n30_p, "lnorm")
+#d,l,u,r
+par(mar=c(5, 4, 1, 2))
+ppcomp(fp, axes = FALSE, 
+       main = '', sub = '(b)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+       lwd = 5)
+axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+abline(0, 1)
+box()
+# r_lnorm = rlnorm(10000, meanlog = fp$estimate[1], sdlog = fp$estimate[2])
+# e_lnorm = ecdf(r_lnorm)
+# lines(e_lnorm, lwd = 1, lty = 2, col = 'purple')
+
+fp <- fitdist(n30_p, "pareto")
+#d,l,u,r
+par(mar=c(5, 4, 1, 2))
+ppcomp(fp, axes = FALSE, 
+       main = '', sub = '(c)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+       lwd = 5)
+axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+abline(0, 1)
+box()
+# r_pareto = rpareto(10000, shape = fp$estimate[1], scale = fp$estimate[2])
+# e_pareto = ecdf(r_pareto)
+# lines(e_pareto, lwd = 1, lty = 2, col = 'red')
+
+data = read.table(paste(workpath, 'data/vci_files/vci_1-7', sep = ''))
+n30 = rowSums(data[2:31])
+n30_p = n30[which(0 < n30)]
+fp <- fitdist(n30_p, "pareto")
+#d,l,u,r
+par(mar=c(5, 4, 1, 2))
+ppcomp(fp, axes = FALSE, 
+       main = '', sub = '(d)', xlab = 'Theoretical Probabilities', ylab = 'Empirical Probabilities', 
+       lwd = 5)
+axis(side = 1, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2))
+axis(side = 2, at = seq(0, 1, 0.2), labels = seq(0, 1, 0.2), las = 1)
+abline(0, 1)
+box()
+
+dev.off()
+

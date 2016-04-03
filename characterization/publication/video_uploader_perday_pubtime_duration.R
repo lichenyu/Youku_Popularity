@@ -17,14 +17,16 @@ u[20] = u[20] - 1500
 
 d = rbind(v, u)
 
-pdf(paste(workpath, "characterization/publication/published_count.pdf", sep = ''), 
-    width = 5, height = 4)
+pdf(paste(workpath, "characterization/publication/published_count_time.pdf", sep = ''), 
+    width = 10, height = 4)
+
+par(mfrow = c(1, 2), cex = 1)
 
 #d,l,u,r
 par(mar=c(5, 4, 1, 2))
 barpos = barplot(d, beside = TRUE, 
                  ylim = c(0, 30000), axes = FALSE, 
-                 main = '', sub = '', xlab = 'Published Date', ylab = 'Count', 
+                 main = '', sub = '(a)', xlab = 'Published Date', ylab = 'Count', 
                  col = c('grey', 'white'), border = 'grey')
 
 axis(side = 1, at = barpos[1, ], labels = rep('', length(barpos[1, ])))
@@ -36,14 +38,7 @@ legend("topright", inset = c(0, 0),
        pch = c(15, 0), col = c("grey", "grey"), 
        legend = c("Video Count","Uploader Count"), bg = "white", cex = 0.8)
 
-dev.off()
 
-
-
-pdf(paste(workpath, "characterization/publication/published_time_duration.pdf", sep = ''), 
-    width = 10, height = 4)
-
-par(mfrow = c(1, 2), cex = 1)
 
 data = read.table(paste(workpath, 'characterization/publication/pubtime_count', sep = ''))
 
@@ -53,7 +48,7 @@ pubtime = data$V2
 par(mar=c(5, 4, 1, 2))
 barpos = barplot(pubtime, axes = FALSE, space = 2.5, 
                  ylim = c(0, 60000), 
-                 main = '', sub = '(a)', xlab = 'Published Time', ylab = 'Video Count', 
+                 main = '', sub = '(b)', xlab = 'Published Time', ylab = 'Video Count', 
                  col = 'grey', border = 'grey')
 axis(side = 1, at = c(barpos - (barpos[2] - barpos[1]) / 2, barpos[length(barpos)] + (barpos[2] - barpos[1]) / 2), 
      labels = c('0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'), 
@@ -62,23 +57,96 @@ axis(side = 2, at = c(0, 20000, 40000, 60000),
      labels = expression('0', '2*10'^4, '4*10'^4, '6*10'^4), 
      las = 1, mgp = c(3, 0.75, 0))
 
-
-
-data = read.table(paste(workpath, 'characterization/publication/durations', sep = ''), fileEncoding = 'utf-8')
-duration = data$V1
-e = ecdf(duration)
-
-#d,l,u,r
-par(mar=c(5, 4, 1, 2))
-plot(e, do.points = FALSE, verticals = TRUE, col.01line = 0, 
-     xlim = c(0, 1800), ylim = c(0, 1), 
-     axes = FALSE, xaxs="i", yaxs="i", 
-     main = "", sub = "(b)", xlab = "Video Duration (seconds)", ylab = "CDF", 
-     col = "blue", lwd = 2)
-axis(side = 1, at = seq(0, 1800, 300), labels = seq(0, 1800, 300), tck = 1, lty = 2, col = 'grey')
-axis(side = 2, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 2, tck = 1, lty = 2, col = 'grey')
-box()
-
 dev.off()
 
 
+
+
+
+
+
+
+# workpath = '/Users/ouyangshuxin/Documents/Youku_Popularity/Youku_Popularity/'
+# 
+# data = read.table(paste(workpath, 'characterization/publication/vid_count_perday', sep = ''))
+# v = data$V1
+# v[1] = v[1] - 4000
+# v[6] = v[6] + 1000
+# v[12] = v[12] + 2000
+# v[17] = v[17] + 1000
+# v[20] = v[20] - 3000
+# data = read.table(paste(workpath, 'characterization/publication/uploader_count_perday', sep = ''))
+# u = data$V1
+# u[1] = u[1] - 2000
+# u[6] = u[6] + 500
+# u[12] = u[12] + 1000
+# u[17] = u[17] + 500
+# u[20] = u[20] - 1500
+# 
+# d = rbind(v, u)
+# 
+# pdf(paste(workpath, "characterization/publication/published_count.pdf", sep = ''), 
+#     width = 5, height = 4)
+# 
+# #d,l,u,r
+# par(mar=c(5, 4, 1, 2))
+# barpos = barplot(d, beside = TRUE, 
+#                  ylim = c(0, 30000), axes = FALSE, 
+#                  main = '', sub = '', xlab = 'Published Date', ylab = 'Count', 
+#                  col = c('grey', 'white'), border = 'grey')
+# 
+# axis(side = 1, at = barpos[1, ], labels = rep('', length(barpos[1, ])))
+# axis(side = 1, at = c(barpos[1], barpos[length(barpos) - 4]), labels = c('2015-12-06', '2016-01-03'), tck = 0)
+# axis(side = 2, at = seq(0, 30000, 10000), 
+#      labels = expression('0', '1*10'^4, '2*10'^4, '3*10'^4), 
+#      las = 1, mgp = c(3, 0.75, 0))
+# legend("topright", inset = c(0, 0), 
+#        pch = c(15, 0), col = c("grey", "grey"), 
+#        legend = c("Video Count","Uploader Count"), bg = "white", cex = 0.8)
+# 
+# dev.off()
+# 
+# 
+# 
+# pdf(paste(workpath, "characterization/publication/published_time_duration.pdf", sep = ''), 
+#     width = 10, height = 4)
+# 
+# par(mfrow = c(1, 2), cex = 1)
+# 
+# data = read.table(paste(workpath, 'characterization/publication/pubtime_count', sep = ''))
+# 
+# pubtime = data$V2
+# 
+# #d,l,u,r
+# par(mar=c(5, 4, 1, 2))
+# barpos = barplot(pubtime, axes = FALSE, space = 2.5, 
+#                  ylim = c(0, 60000), 
+#                  main = '', sub = '(a)', xlab = 'Published Time', ylab = 'Video Count', 
+#                  col = 'grey', border = 'grey')
+# axis(side = 1, at = c(barpos - (barpos[2] - barpos[1]) / 2, barpos[length(barpos)] + (barpos[2] - barpos[1]) / 2), 
+#      labels = c('0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'), 
+#      las = 2, mgp = c(3, 0.7, 0))
+# axis(side = 2, at = c(0, 20000, 40000, 60000), 
+#      labels = expression('0', '2*10'^4, '4*10'^4, '6*10'^4), 
+#      las = 1, mgp = c(3, 0.75, 0))
+# 
+# 
+# 
+# data = read.table(paste(workpath, 'characterization/publication/durations', sep = ''), fileEncoding = 'utf-8')
+# duration = data$V1
+# e = ecdf(duration)
+# 
+# #d,l,u,r
+# par(mar=c(5, 4, 1, 2))
+# plot(e, do.points = FALSE, verticals = TRUE, col.01line = 0, 
+#      xlim = c(0, 1800), ylim = c(0, 1), 
+#      axes = FALSE, xaxs="i", yaxs="i", 
+#      main = "", sub = "(b)", xlab = "Video Duration (seconds)", ylab = "CDF", 
+#      col = "blue", lwd = 2)
+# axis(side = 1, at = seq(0, 1800, 300), labels = seq(0, 1800, 300), tck = 1, lty = 2, col = 'grey')
+# axis(side = 2, at = seq(0, 1, .2), labels = seq(0, 1, .2), las = 2, tck = 1, lty = 2, col = 'grey')
+# box()
+# 
+# dev.off()
+# 
+# 
